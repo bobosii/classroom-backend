@@ -59,7 +59,7 @@ const securityMiddleware = async (req: Request, res: Response, next: NextFunctio
             });
         }
         if (decision.isDenied() && decision.reason.isRateLimit()) {
-            return res.status(403).json({
+            return res.status(429).json({
                 error: "Too many request",
                 message:
                     "Guest request limit (5 per minute) please sign in for higher limits",
@@ -67,7 +67,7 @@ const securityMiddleware = async (req: Request, res: Response, next: NextFunctio
         }
         next();
     } catch (e) {
-        console.error("Arcject middleware error ", e);
+        console.error("Arcjet middleware error ", e);
         res.status(500).json({
             error: "Internal server error",
             message: "Something went wrong with the security arcjet",
